@@ -1,0 +1,38 @@
+node_modules
+build
+dist
+
+
+# Error logs
+# .error.log
+# *-error.log
+*.log
+*.logs
+
+# IDE <VSCode>
+.vscode/*
+.vscode/extension.json
+.vscode/settings.json
+
+# environment
+.env
+**/*.env
+!example.env
+!sample.env
+!.example.env
+!.sample.env
+
+# Husky
+.husky/*
+!.husky/pre-commit
+!.husky/post-commit
+!.husky/pre-push
+!.husky/post-push
+
+# OS & Other Misc.
+.DS_Store
+.active
+.exe
+.ini
+.ink
+.msi
