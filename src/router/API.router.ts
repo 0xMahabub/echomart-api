@@ -1,11 +1,20 @@
 import { Router, Request, Response } from 'express';
 import { StatusCodes as HTTP } from 'http-status-codes';
+import { userController } from '../services';
 
 const api = Router();
 /**------------------------------------------------------------*
  * @Router :=> This is the main router for all api handlers
  * Every api controllers should be @register or @hooked in here
  *-------------------------------------------------------------*/
+
+/**-------------------------------------------------------------*
+ * @APIs :=> are registered & hooked in here
+ *--------------------------------------------------------------*/
+//===============================================================//
+api.use('/user', userController);
+
+//===============================================================//
 
 // GET /api
 api.get('/', (req: Request, res: Response) => {
