@@ -6,7 +6,6 @@ import {
   createUserSchema,
   getUserByIdSchema,
   getUserByEmailSchema,
-  updateUserSchema,
 } from './user.schema';
 import { ZodError } from 'zod';
 
@@ -20,6 +19,7 @@ controller.post('/', async (req: Request, res: Response) => {
   try {
     const params = createUserSchema.parse(req.body);
     const hashedPassword = await new Password(params.password).hash();
+    console.log(hashedPassword);
     const user = await userService.addUser({
       ...params,
       password: hashedPassword,

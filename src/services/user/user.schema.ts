@@ -20,16 +20,6 @@ export const createUserSchema = z.object({
     .min(8, 'minimum 8 characters required'),
 });
 
-export const updateUserSchema = z.object({
-  name: z.string().trim().min(4, 'minimum 4 characters required').nullable(),
-  email: z.string().trim().email('invalid email!').nullable(),
-  password: z
-    .string()
-    .trim()
-    .min(8, 'minimum 8 characters required')
-    .nullable(),
-});
-
 export const getUserByIdSchema = z.object({
   id: z
     .string({ required_error: 'user id:uuid is required!' })

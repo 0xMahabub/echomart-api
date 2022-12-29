@@ -1,4 +1,5 @@
 import { DataSource, DataSourceOptions } from 'typeorm';
+import 'reflect-metadata';
 // import 'reflect-metadata'; use it in global @recommended
 
 const dbConfigs: DataSourceOptions = {

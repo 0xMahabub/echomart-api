@@ -1,7 +1,6 @@
 import express, { Express } from 'express';
 import cors from 'cors';
 import morgan from 'morgan';
-import 'reflect-metadata';
 import { log } from './helpers';
 import { mode, port } from './configs';
 import { router } from './router';
