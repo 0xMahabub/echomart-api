@@ -14,6 +14,8 @@ export const databaseUrl: string = process.env.DB_URL || '';
 export const mode: string = process.env.NODE_ENV || 'development';
 export const redisHostname: string = process.env.REDIS_HOST || 'localhost';
 export const redisPort: number = Number(process.env.REDIS_PORT) || 6379;
+export const jwtSecret: string = process.env.JWT_SECRET || 'secret';
+export const jwtExpires: number = Number(process.env.JWT_EXPIRE) || 43200000; // 12h by default
 export const sessionSecret: string = process.env.SESSION_SECRET || '';
 export const sessionExpires: number =
   Number(process.env.SESSION_SECRET) || 36000000;

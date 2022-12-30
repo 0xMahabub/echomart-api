@@ -4,6 +4,7 @@ import { Password } from '../../../helpers';
 import { ZodError } from 'zod';
 import { loginSchema } from './login.schema';
 import { LoginService } from './login.service';
+import { Token } from '../../../helpers';
 
 const controller = Router();
 const loginService = new LoginService();
@@ -50,7 +51,7 @@ controller.post('/user', async (req: Request, res: Response) => {
         message: 'Login successfully!',
         data: {
           user: findUser,
-          token: 'token_____',
+          token: await new Token().generateJwt({ id: findUser?.id }),
         },
         error: null,
       });
