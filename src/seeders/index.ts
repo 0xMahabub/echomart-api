@@ -1,1 +1,1 @@
-// export * from '_path';
+//

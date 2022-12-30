@@ -12,3 +12,8 @@ dotenv.config(); // env variable parseing
 export const port: number = Number(process.env.PORT) || 4000;
 export const databaseUrl: string = process.env.DB_URL || '';
 export const mode: string = process.env.NODE_ENV || 'development';
+export const redisHostname: string = process.env.REDIS_HOST || 'localhost';
+export const redisPort: number = Number(process.env.REDIS_PORT) || 6379;
+export const sessionSecret: string = process.env.SESSION_SECRET || '';
+export const sessionExpires: number =
+  Number(process.env.SESSION_SECRET) || 36000000;

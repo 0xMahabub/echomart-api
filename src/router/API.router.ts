@@ -1,6 +1,6 @@
 import { Router, Request, Response } from 'express';
 import { StatusCodes as HTTP } from 'http-status-codes';
-import { userController } from '../services';
+import { userController, authController } from '../services';
 
 const api = Router();
 /**------------------------------------------------------------*
@@ -12,6 +12,7 @@ const api = Router();
  * @APIs :=> are registered & hooked in here
  *--------------------------------------------------------------*/
 //===============================================================//
+api.use('/auth', authController);
 api.use('/user', userController);
 
 //===============================================================//

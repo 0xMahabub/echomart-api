@@ -6,6 +6,7 @@ import {
   createUserSchema,
   getUserByIdSchema,
   getUserByEmailSchema,
+  getUserByPhoneSchema,
 } from './user.schema';
 import { ZodError } from 'zod';
 
@@ -19,7 +20,7 @@ controller.post('/', async (req: Request, res: Response) => {
   try {
     const params = createUserSchema.parse(req.body);
     const hashedPassword = await new Password(params.password).hash();
-    console.log(hashedPassword);
+    // console.log(hashedPassword);
     const user = await userService.addUser({
       ...params,
       password: hashedPassword,
@@ -100,11 +101,54 @@ controller.get('/e/:email', async (req: Request, res: Response) => {
   try {
     const { email } = getUserByEmailSchema.parse(req.params);
     const getUser = await userService.getUserByEmail(email);
-    res.status(HTTP.OK).json({
-      message: 'get one user',
-      data: getUser,
-      error: null,
+    if (getUser) {
+      res.status(HTTP.OK).json({
+        message: 'get one user',
+        data: getUser,
+        error: null,
+      });
+    } else {
+      res.status(HTTP.NOT_FOUND).json({
+        message: 'user not found!',
+        data: null,
+        error: null,
+      });
+    }
+  } catch (err) {
+    if (err instanceof ZodError) {
+      res.status(HTTP.BAD_REQUEST).json({
+        message: 'Input validation error!',
+        data: null,
+        error: err.issues.map((issue) => issue.message),
+      });
+    }
+
+    res.status(HTTP.INTERNAL_SERVER_ERROR).json({
+      message: 'Internal Server Error!',
+      data: null,
+      error: err,
     });
+  }
+});
+
+// # GET: /:phone,  get users by Phone :=> User
+controller.get('/p/:phone', async (req: Request, res: Response) => {
+  try {
+    const { phone } = getUserByPhoneSchema.parse(req.params);
+    const getUser = await userService.getUserByPhone(phone);
+    if (getUser) {
+      res.status(HTTP.OK).json({
+        message: 'get one user',
+        data: getUser,
+        error: null,
+      });
+    } else {
+      res.status(HTTP.NOT_FOUND).json({
+        message: 'user not found!',
+        data: null,
+        error: null,
+      });
+    }
   } catch (err) {
     if (err instanceof ZodError) {
       res.status(HTTP.BAD_REQUEST).json({

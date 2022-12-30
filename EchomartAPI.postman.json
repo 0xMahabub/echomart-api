@@ -1,11 +1,60 @@
 {
   "info": {
-    "_postman_id": "b08efee8-e272-47fa-9d21-fff768febb75",
+    "_postman_id": "c6b0835c-49ab-49ca-9400-18117a7f4849",
     "name": "EchomartAPI",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
     "_exporter_id": "14545400"
   },
   "item": [
+    {
+      "name": "Auth",
+      "item": [
+        {
+          "name": "Login:User",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"name\": \"User 001\",\n    \"email\": \"user@mail.com1\",\n    \"password\": \"1234pass\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{API}}/auth/login/",
+              "host": ["{{API}}"],
+              "path": ["auth", "login", ""]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Signup:User",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"name\": \"User 1x\",\n    \"email\": \"user@mail.com1\",\n    \"password\": \"1234pass\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{API}}/auth/signup/",
+              "host": ["{{API}}"],
+              "path": ["auth", "signup", ""]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
     {
       "name": "User",
       "item": [
@@ -16,7 +65,7 @@
             "header": [],
             "body": {
               "mode": "raw",
-              "raw": "{\n    \"name\": \"User 001\",\n    \"email\": \"user@mail.com1\",\n    \"password\": \"1234pass\"\n}",
+              "raw": "{\n    \"name\": \"User 02\",\n    \"email\": \"user@mail.com\",\n    \"password\": \"1234pass\"\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -38,7 +87,7 @@
             "header": [],
             "body": {
               "mode": "raw",
-              "raw": "{\n    \"name\": \"User 1\",\n    \"email\": \"user@mail.com1\",\n    \"password\": \"1234pass\"\n}",
+              "raw": "{\n    \"name\": \"User 1x\",\n    \"email\": \"user@mail.com1\",\n    \"password\": \"1234pass\"\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -46,9 +95,9 @@
               }
             },
             "url": {
-              "raw": "{{API}}/user/fec03710-5b80-448f-8562-6b140434288f",
+              "raw": "{{API}}/user/9c21cadb-8828-4f33-add3-bc7030296ba8",
               "host": ["{{API}}"],
-              "path": ["user", "fec03710-5b80-448f-8562-6b140434288f"]
+              "path": ["user", "9c21cadb-8828-4f33-add3-bc7030296ba8"]
             }
           },
           "response": []
@@ -98,9 +147,9 @@
             "method": "DELETE",
             "header": [],
             "url": {
-              "raw": "{{API}}/user/fec03710-5b80-448f-8562-6b140434288f",
+              "raw": "{{API}}/user/9c21cadb-8828-4f33-add3-bc7030296ba8",
               "host": ["{{API}}"],
-              "path": ["user", "fec03710-5b80-448f-8562-6b140434288f"]
+              "path": ["user", "9c21cadb-8828-4f33-add3-bc7030296ba8"]
             }
           },
           "response": []

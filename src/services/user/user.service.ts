@@ -19,6 +19,10 @@ export class UserService {
     return await userRepository.findByEmail(email);
   }
 
+  async getUserByPhone(phone: string): Promise<User | null> {
+    return await userRepository.findByPhone(phone);
+  }
+
   async getUsersByName(name: string): Promise<User[]> {
     return await userRepository.findByName(name);
   }

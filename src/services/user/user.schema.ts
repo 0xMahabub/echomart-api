@@ -14,6 +14,15 @@ export const createUserSchema = z.object({
     .string({ required_error: 'email is required' })
     .trim()
     .email('invalid email!'),
+  phone: z
+    .string()
+    .regex(
+      /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/,
+      'invalid phone number!',
+    )
+    .min(10, 'phone number is short!')
+    .max(14, 'phone number is too long!')
+    .optional(),
   password: z
     .string({ required_error: 'password is required' })
     .trim()
@@ -32,4 +41,15 @@ export const getUserByEmailSchema = z.object({
     .string({ required_error: 'email is required!' })
     .trim()
     .email('invalid email!'),
+});
+
+export const getUserByPhoneSchema = z.object({
+  phone: z
+    .string({ required_error: 'phone number is required!' })
+    .regex(
+      /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/,
+      'invalid phone number!',
+    )
+    .min(10, 'phone number is short!')
+    .max(14, 'phone number is too long!'),
 });

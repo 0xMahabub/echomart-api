@@ -1,10 +1,18 @@
 import express, { Express } from 'express';
 import cors from 'cors';
 import morgan from 'morgan';
+import helmet from 'helmet';
+import session from 'express-session';
 import { log } from './helpers';
 import { mode, port } from './configs';
 import { router } from './router';
-import { db } from './configs';
+import {
+  db,
+  RedisStore,
+  redisClient,
+  sessionSecret,
+  sessionExpires,
+} from './configs';
 
 const server: Express = express(); // Express app instance
 
@@ -12,6 +20,7 @@ const server: Express = express(); // Express app instance
 server.use(express.json()); // BodyParser
 server.use(express.urlencoded({ extended: true }));
 if (mode !== 'production') {
+  server.use(helmet()); // security purpose
   server.use(cors()); // CORS enabled for all
 } else {
   // or you can make a allow-list and CorsOptions with it
@@ -37,10 +46,28 @@ const initDatabase = async () => {
     });
 };
 
+// setup redis-sessions
+const initSessionManager = async () => {
+  server.use(
+    session({
+      store: new RedisStore({ client: redisClient }),
+      secret: sessionSecret,
+      resave: false,
+      saveUnInitialized: false,
+      cookie: {
+        secure: false,
+        httpOnly: false,
+        maxAge: sessionExpires,
+      },
+    }),
+  );
+};
+
 /// Spin the server @Bootstrap
 const bootstrap = async () => {
   try {
     initDatabase();
+    initSessionManager();
     // exposing application and listening through a port
     server.listen(port, () =>
       log.info(`⚡️[server]: Server is running at http://localhost:${port}`),

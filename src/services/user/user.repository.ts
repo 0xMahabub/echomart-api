@@ -13,4 +13,10 @@ export const userRepository = db.getRepository(User).extend({
       .where('user.email = :email', { email })
       .getOne();
   },
+
+  findByPhone(phone: string): Promise<User | null> {
+    return this.createQueryBuilder('user')
+      .where('user.phone = :phone', { phone })
+      .getOne();
+  },
 });
