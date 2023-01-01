@@ -2,17 +2,9 @@ import express, { Express } from 'express';
 import cors from 'cors';
 import morgan from 'morgan';
 import helmet from 'helmet';
-import session from 'express-session';
-import { log } from './helpers';
-import { mode, port } from './configs';
+import { log, cookieParser } from './helpers';
+import { mode, port, db, redisClient } from './configs';
 import { router } from './router';
-import {
-  db,
-  RedisStore,
-  redisClient,
-  sessionSecret,
-  sessionExpires,
-} from './configs';
 
 const server: Express = express(); // Express app instance
 
@@ -29,6 +21,8 @@ if (mode !== 'production') {
 }
 server.use(morgan(mode === 'development' ? 'dev' : 'combined'));
 server.use(router); // Application router handler
+server.use(cookieParser); // setting up the cookie parser
+
 const destroyDbConnection = async () => {
   return await db.destroy();
 };
@@ -44,30 +38,14 @@ const initDatabase = async () => {
     .catch((err) => {
       log.error(err);
     });
-};
 
-// setup redis-sessions
-const initSessionManager = async () => {
-  server.use(
-    session({
-      store: new RedisStore({ client: redisClient }),
-      secret: sessionSecret,
-      resave: false,
-      saveUnInitialized: false,
-      cookie: {
-        secure: false,
-        httpOnly: false,
-        maxAge: sessionExpires,
-      },
-    }),
-  );
+  await redisClient.connect(); // connect redis
 };
 
 /// Spin the server @Bootstrap
 const bootstrap = async () => {
   try {
     initDatabase();
-    initSessionManager();
     // exposing application and listening through a port
     server.listen(port, () =>
       log.info(`⚡️[server]: Server is running at http://localhost:${port}`),

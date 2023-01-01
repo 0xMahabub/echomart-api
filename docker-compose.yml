@@ -1,0 +1,25 @@
+version: '3.8'
+
+services:
+  postgres:
+    container_name: postgresdb_eapi
+    image: postgres:latest
+    ports:
+      - '5500:5432'
+    volumes:
+      - postgresdb:/var/lib/postgres/data
+    environment:
+      - POSTGRES_HOST_AUTH_METHOD=trust
+      - POSTGRES_PASSWORD='postgres123'
+
+  redis:
+    image: redis
+    container_name: redis_eapi
+    ports:
+      - '6400:6379'
+    volumes:
+      - redisdb:/data
+
+volumes:
+  postgresdb:
+  redisdb:

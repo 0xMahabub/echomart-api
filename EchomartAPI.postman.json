@@ -1,9 +1,9 @@
 {
   "info": {
-    "_postman_id": "c6b0835c-49ab-49ca-9400-18117a7f4849",
+    "_postman_id": "7cdedf4f-f126-41e6-8fb9-f8dfe857a11d",
     "name": "EchomartAPI",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "_exporter_id": "14545400"
+    "_exporter_id": "18797048"
   },
   "item": [
     {
@@ -16,7 +16,7 @@
             "header": [],
             "body": {
               "mode": "raw",
-              "raw": "{\n    \"name\": \"User 001\",\n    \"email\": \"user@mail.com1\",\n    \"password\": \"1234pass\"\n}",
+              "raw": "{\n    \"email\": \"user@mail.com\",\n    \"password\": \"1234pass\"\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -24,9 +24,9 @@
               }
             },
             "url": {
-              "raw": "{{API}}/auth/login/",
+              "raw": "{{API}}/auth/login/user",
               "host": ["{{API}}"],
-              "path": ["auth", "login", ""]
+              "path": ["auth", "login", "user"]
             }
           },
           "response": []
@@ -65,7 +65,7 @@
             "header": [],
             "body": {
               "mode": "raw",
-              "raw": "{\n    \"name\": \"User 02\",\n    \"email\": \"user@mail.com\",\n    \"password\": \"1234pass\"\n}",
+              "raw": "{\n    \"name\": \"User 01\",\n    \"email\": \"user@mail.com\",\n    \"password\": \"1234pass\"\n}",
               "options": {
                 "raw": {
                   "language": "json"

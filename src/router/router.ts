@@ -19,7 +19,7 @@ router.get('/', (req: Request, res: Response) => {
   res
     .status(HTTP.OK)
     .send(
-      `<h1>Welcome! @codex-7/express-typescript</h1><p>req_url:${req.url}</p>`,
+      `<h1>Welcome! to Echomart-API server using expressjs</h1><p>req_url:${req.url}</p>`,
     );
 });
 
