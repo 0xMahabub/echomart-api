@@ -12,13 +12,13 @@ const server: Express = express(); // Express app instance
 server.use(express.json()); // BodyParser
 server.use(express.urlencoded({ extended: true }));
 if (mode !== 'production') {
-  server.use(helmet()); // security purpose
   server.use(cors()); // CORS enabled for all
 } else {
   // or you can make a allow-list and CorsOptions with it
   // I'm exposing /api* access to everybody @Initially as a boilerplate only
   server.options('/api/*', cors()); // ONLY /api/* is enabled from anywhere
 }
+server.use(helmet()); // security purpose
 server.use(morgan(mode === 'development' ? 'dev' : 'combined'));
 server.use(router); // Application router handler
 server.use(cookieParser); // setting up the cookie parser
