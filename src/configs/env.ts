@@ -19,3 +19,5 @@ export const jwtExpires: number = Number(process.env.JWT_EXPIRE) || 43200000; //
 export const sessionSecret: string = process.env.SESSION_SECRET || '';
 export const sessionExpires: number =
   Number(process.env.SESSION_SECRET) || 36000000;
+export const cookieCredentials: string =
+  process.env.COOKIE_CRED || 'cookie-secret';

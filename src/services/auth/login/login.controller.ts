@@ -1,10 +1,15 @@
 import { Router, Request, Response } from 'express';
 import { StatusCodes as HTTP } from 'http-status-codes';
-import { Password } from '../../../helpers';
 import { ZodError } from 'zod';
 import { loginSchema } from './login.schema';
 import { LoginService } from './login.service';
-import { Token } from '../../../helpers';
+import {
+  Password,
+  Token,
+  setInRedis,
+  setCookie,
+  generateUid,
+} from '../../../helpers';
 
 const controller = Router();
 const loginService = new LoginService();
@@ -41,18 +46,30 @@ controller.post('/user', async (req: Request, res: Response) => {
       handle: handleInfo.handle,
       type: handleInfo.type,
     });
+    if (findUser === null) {
+      res.status(404).json({
+        message: 'User not found!',
+        data: null,
+        error: {
+          type: 404,
+          handler: 'loginService.getUserInfo',
+        },
+      });
+    }
     const pwdCheck = await new Password(
       handleInfo.password,
       findUser?.password,
     ).verify();
-    if (pwdCheck) {
+    if (pwdCheck && findUser?.id !== undefined) {
       // password is accepted!
+      const accessToken = await new Token().generateJwt({ id: findUser.id }); // JWT Access Token
+      const tokenUid = generateUid(); // uid using as accesor
+      setInRedis(tokenUid, { accessToken }); // saving jwt in redis with a unique id <cuid>
+      setCookie(res, 'access_token', tokenUid); // setting token accesor uid in cookie
+      // response back to user
       res.status(HTTP.ACCEPTED).json({
-        message: 'Login successfully!',
-        data: {
-          user: findUser,
-          token: await new Token().generateJwt({ id: findUser?.id }),
-        },
+        message: 'Login successfull!',
+        data: findUser,
         error: null,
       });
     } else {
