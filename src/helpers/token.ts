@@ -16,10 +16,15 @@ export class Token {
     }
   }
 
-  // @Generate JWT Token
-  generateJwt(info: object): string {
+  // @Generate JWT
+  generateJwt(info: object) {
     return jwt.sign({ ...info, role: this.role }, this.secret, {
       expiresIn: this.expires,
     });
+  }
+
+  // @parse a JWT
+  parseJwt(token: string) {
+    return jwt.verify(token, jwtSecret);
   }
 }
