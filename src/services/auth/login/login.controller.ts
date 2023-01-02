@@ -55,6 +55,8 @@ controller.post('/user', async (req: Request, res: Response) => {
           handler: 'loginService.getUserInfo',
         },
       });
+
+      return;
     }
     const pwdCheck = await new Password(
       handleInfo.password,
@@ -64,7 +66,8 @@ controller.post('/user', async (req: Request, res: Response) => {
       // password is accepted!
       const accessToken = await new Token().generateJwt({ id: findUser.id }); // JWT Access Token
       const tokenUid = generateUid(); // uid using as accesor
-      setInRedis(tokenUid, { accessToken }); // saving jwt in redis with a unique id <cuid>
+      // saving jwt in redis with a unique id <cuid>
+      setInRedis(tokenUid, { accessToken: accessToken });
       setCookie(res, 'access_token', tokenUid); // setting token accesor uid in cookie
       // response back to user
       res.status(HTTP.ACCEPTED).json({
@@ -72,6 +75,7 @@ controller.post('/user', async (req: Request, res: Response) => {
         data: findUser,
         error: null,
       });
+      return;
     } else {
       res.status(HTTP.UNAUTHORIZED).json({
         message: 'Wrong Password!',

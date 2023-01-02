@@ -4,6 +4,7 @@
     "module": "CommonJS",
     "lib": ["dom", "es6", "es2017", "esnext.asynciterable"],
     "sourceMap": true,
+    "declaration": true,
     "outDir": "./dist",
     "moduleResolution": "node",
     "removeComments": true,
@@ -14,10 +15,11 @@
     "resolveJsonModule": true,
     "strictPropertyInitialization": false,
     "strictNullChecks": true,
-    "baseUrl": "./",
+    // "baseUrl": "./",
+    "rootDir": "./src",
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true
   },
-  "include": ["src"],
+  "include": ["src/**/*.ts"],
   "exclude": ["node_modules", "dist"]
 }

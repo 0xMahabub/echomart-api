@@ -14,7 +14,6 @@
 - TDD: Test Driven Development with `JEST`
 - API Documentation in markdown and `swagger-express` too.
 
-
 # Installation & Setup guide
 
 **# Download or Clone this repository first**
@@ -55,7 +54,8 @@ SESSION_SECRET=secret
 SESSION_EXPIRE=43200000 # 12hr in ms
 COOKIE_CRED=ilovecookie
 ```
-<!-- 
+
+<!--
 **# Run Seeders (Set some inital data in database first)**
 
 ```bash
@@ -71,4 +71,3 @@ $ yarn start
 ```
 
 ---
-

@@ -5,8 +5,22 @@ import helmet from 'helmet';
 import { log, cookieParser } from './helpers';
 import { mode, port, db, redisClient } from './configs';
 import { router } from './router';
+import { ROLE } from './configs';
+import { User } from './services';
 
 const server: Express = express(); // Express app instance
+
+// declare some custome types
+declare global {
+  namespace Express {
+    interface Request {
+      user?: User | null;
+      role?: ROLE;
+      isAuth: boolean;
+      secret?: string;
+    }
+  }
+}
 
 // common server settings
 server.use(express.json()); // BodyParser
